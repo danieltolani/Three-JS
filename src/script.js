@@ -1,3 +1,6 @@
+import * as THREE from 'three'
+
+
 // I need a mesh
 // The mesh contains two parameters - 
 //   1. Is the geometry and the other is the materail
