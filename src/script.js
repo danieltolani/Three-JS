@@ -1,6 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
 import { Group, Mesh } from 'three';
+import gsap from 'gsap'
 
 
 // I need a mesh
@@ -149,6 +150,12 @@ renderer.setSize(
 // let Time = Date.now()
 
 
+//GSAP
+console.log(gsap)
+gsap.to(cubeMesh.position, {x: 2, duration: 1, delay: 1})
+gsap.to(cubeMesh.position, {x: -2, duration: 2, delay: 2})
+
+
 // CLOCK
 const clock = new THREE.Clock()
 
@@ -170,10 +177,10 @@ const tickCalled = () => {
     // cubeMesh.rotation.y += 0.008
     // cubeMesh.rotation.x += 0.02
 
-    console.log(Math.sin(elapsedTIme) )
-    cubeMesh.position.y = Math.sin(elapsedTIme) 
-    cubeMesh.position.x = Math.tan(elapsedTIme) 
-    
+    // console.log(Math.sin(elapsedTIme) )
+    // cubeMesh.position.y = Math.sin(elapsedTIme) 
+    // cubeMesh.position.x = Math.tan(elapsedTIme) 
+    // camera.lookAt(cubeMesh.position)
     renderer.render(scene, camera)
 
     // const time = Date.now()
