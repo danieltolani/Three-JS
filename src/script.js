@@ -145,6 +145,8 @@ renderer.setSize(
     sizes.width, sizes.height
 )
 
+// Time 
+let Time = Date.now()
 
 
 
@@ -152,9 +154,16 @@ renderer.setSize(
 // Request Animation Frame calls a function on each frame
 const tickCalled = () => {
 
-    console.log("Hello")
-    cubeMesh.rotation.y += 0.01
-    console.log(cubeMesh.position.distanceTo(camera.position))
+    const currentTime = Date.now()
+
+    const deltaTime = currentTime-Time
+    Time = currentTime
+
+    console.log(deltaTime)
+    
+    cubeMesh.rotation.z += 0.01 * deltaTime
+    // cubeMesh.rotation.y += 0.008
+    // cubeMesh.rotation.x += 0.02
     renderer.render(scene, camera)
 
     // const time = Date.now()
