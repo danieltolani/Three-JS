@@ -145,25 +145,35 @@ renderer.setSize(
     sizes.width, sizes.height
 )
 
-// Time 
-let Time = Date.now()
+// TIME
+// let Time = Date.now()
 
+
+// CLOCK
+const clock = new THREE.Clock()
 
 
 // ANIMATION
 // Request Animation Frame calls a function on each frame
 const tickCalled = () => {
 
-    const currentTime = Date.now()
+    const elapsedTIme = clock.getElapsedTime()
 
-    const deltaTime = currentTime-Time
-    Time = currentTime
+    // const currentTime = Date.now()
 
-    console.log(deltaTime)
+    // const deltaTime = currentTime-Time
+    // Time = currentTime
+
+    // console.log(deltaTime)
     
-    cubeMesh.rotation.z += 0.01 * deltaTime
+    // cubeMesh.rotation.z += 0.01 * deltaTime
     // cubeMesh.rotation.y += 0.008
     // cubeMesh.rotation.x += 0.02
+
+    console.log(Math.sin(elapsedTIme) )
+    cubeMesh.position.y = Math.sin(elapsedTIme) 
+    cubeMesh.position.x = Math.tan(elapsedTIme) 
+    
     renderer.render(scene, camera)
 
     // const time = Date.now()
