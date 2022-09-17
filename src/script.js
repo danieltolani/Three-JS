@@ -87,29 +87,56 @@ scene.add(cubeMesh)
 // There are different cameras in THREE.js but the one I'm using for this project is the Perspective camera which takes two values or more.
 //    1. Is the Field of View  -  Takes in a Degree 
 //    2. Is the aspect ration  - Takes in a size.. 
+//    3. NEAR - Objects closer than the Near value won't show up
+//    4. FAR - Objects farther than the far won't show up 
 
 // We need to declare the size for the aspect ratio - In form objects where we assign a width and a height value.
 // There are no specified units of measurement for the width and height
 
 
 const sizes = {
+    // width: window.innerWidth,
+    // height: window.innerHeight
+
     width: window.innerWidth,
     height: window.innerHeight
 }
 
+// console.log(window.height)
 // Now we can declare the camera and place the sizes in it.
-const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height)
+
+// Orthogrophic Camera
+// Scene will be renedered with NO perspective
+// Size of object is always the same
+// We need the L,B,F & B
+
+const aspectRatio = sizes.width / sizes.height
+
+console.log(aspectRatio)
+const camera = new THREE.OrthographicCamera(
+    -1 * aspectRatio,
+    1 * aspectRatio,
+    1,
+    -1,
+    1,
+    100)
+
+
+// const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height)
+
+// const camera = new THREE.OrthographicCamera(-1,-1,1,1)
 // We then need to add the camera to the scene
 
 scene.add(camera)
-// camera.lookAt(cubeMesh.position)
-// camera.position.y = 0.6 
-// camera.position.x = 1 
+
+camera.position.y = 2
+camera.position.x = 2 
 
 // By default the camera postion will be the scene (or 'world's') origin (as in blender)
 // This makes it to be in the same position as the mesh (or inside of it) so, we cannot see anything
 // so we move the position of the camera so we can see other faces of the mesh
 camera.position.z = 3
+camera.lookAt(cubeMesh.position)
 // camera.rotation.x = 1.2
 // console.log(cubeMesh.distanceTo(camera.position))
 // camera.position.x = 2
@@ -151,9 +178,9 @@ renderer.setSize(
 
 
 //GSAP
-console.log(gsap)
-gsap.to(cubeMesh.position, {x: 2, duration: 1, delay: 1})
-gsap.to(cubeMesh.position, {x: -2, duration: 2, delay: 2})
+// console.log(gsap)
+// gsap.to(cubeMesh.position, {x: 2, duration: 1, delay: 1})
+// gsap.to(cubeMesh.position, {x: -2, duration: 2, delay: 2})
 
 
 // CLOCK
@@ -178,7 +205,10 @@ const tickCalled = () => {
     // cubeMesh.rotation.x += 0.02
 
     // console.log(Math.sin(elapsedTIme) )
-    // cubeMesh.position.y = Math.sin(elapsedTIme) 
+    // cubeMesh.position.y = Math.sin(elapsedTIme) \
+    cubeMesh.rotation.y = elapsedTIme * Math.PI * 2
+
+
     // cubeMesh.position.x = Math.tan(elapsedTIme) 
     // camera.lookAt(cubeMesh.position)
     renderer.render(scene, camera)
