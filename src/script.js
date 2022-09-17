@@ -2,10 +2,14 @@ import './style.css'
 import * as THREE from 'three'
 import { Group, Mesh } from 'three';
 import gsap from 'gsap'
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 
+// I'll need to call/access the canvas from the DOM, by
+const canvas = document.querySelector(".webgl")
+
+// console.log(OrbitControls)
 
 // CURSOR
-
 const cursor = {
     x:0,
     y:0
@@ -146,6 +150,22 @@ const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height)
 
 scene.add(camera)
 
+// CONTROLS 
+const controls = new OrbitControls(camera, canvas)
+// console.log(controls)
+
+// CHANGE TARGET
+// controls.target.x = 1
+// controls.update()
+
+// AUTO ROTATE
+controls.autoRotate = true 
+controls.autoRotateSpeed = 2
+
+// Damping 
+// More like a overshoot & Interpolation combined
+controls.enableDamping = true
+
 // camera.position.y = 2
 // camera.position.x = 2 
 
@@ -172,8 +192,7 @@ scene.add(axesHelper)
 // For this project I will be using the WebGl Renderer but there are others.
 // The WebGL renderer displays the beautifully crafted scenes using WebGL
 
-// I'll need to call/access the canvas from the DOM, by
-const canvas = document.querySelector(".webgl")
+
 
 // The WebGlRenderer takes in objects as parameters
 // This is where we pass the canvas
@@ -223,12 +242,12 @@ const tickCalled = () => {
 
 
     // Update Camera
-    camera.position.x = Math.sin(cursor.x * Math.PI * 2)  * 3
-    camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
-    camera.position.y = cursor.y * 5
+    // camera.position.x = Math.sin(cursor.x * Math.PI * 2)  * 3
+    // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
+    // camera.position.y = cursor.y * 5
 
-
-    camera.lookAt(cubeMesh.position)
+    controls.update()
+    // camera.lookAt(cubeMesh.position)
 
 
     // console.log(Math.sin(elapsedTIme) )
