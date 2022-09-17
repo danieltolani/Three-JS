@@ -4,6 +4,20 @@ import { Group, Mesh } from 'three';
 import gsap from 'gsap'
 
 
+// CURSOR
+
+const cursor = {
+    x:0,
+    y:0
+}
+
+window.addEventListener('mousemove', (event) =>{
+
+    cursor.x = event.clientX / sizes.width - 0.5
+    cursor.y = -(event.clientY / sizes.height - 0.5)
+})
+
+
 // I need a mesh
 // The mesh contains two parameters - 
 //   1. Is the geometry and the other is the materail
@@ -100,6 +114,9 @@ const sizes = {
 
     width: window.innerWidth,
     height: window.innerHeight
+
+    // width: 800,
+    // height: 600
 }
 
 // console.log(window.height)
@@ -110,27 +127,27 @@ const sizes = {
 // Size of object is always the same
 // We need the L,B,F & B
 
-const aspectRatio = sizes.width / sizes.height
+// const aspectRatio = sizes.width / sizes.height
 
-console.log(aspectRatio)
-const camera = new THREE.OrthographicCamera(
-    -1 * aspectRatio,
-    1 * aspectRatio,
-    1,
-    -1,
-    1,
-    100)
+// console.log(aspectRatio)
+// const camera = new THREE.OrthographicCamera(
+//     -1 * aspectRatio,
+//     1 * aspectRatio,
+//     1,
+//     -1,
+//     1,
+//     100)
 
 
-// const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height)
+const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height)
 
 // const camera = new THREE.OrthographicCamera(-1,-1,1,1)
 // We then need to add the camera to the scene
 
 scene.add(camera)
 
-camera.position.y = 2
-camera.position.x = 2 
+// camera.position.y = 2
+// camera.position.x = 2 
 
 // By default the camera postion will be the scene (or 'world's') origin (as in blender)
 // This makes it to be in the same position as the mesh (or inside of it) so, we cannot see anything
@@ -204,9 +221,19 @@ const tickCalled = () => {
     // cubeMesh.rotation.y += 0.008
     // cubeMesh.rotation.x += 0.02
 
+
+    // Update Camera
+    camera.position.x = Math.sin(cursor.x * Math.PI * 2)  * 3
+    camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
+    camera.position.y = cursor.y * 5
+
+
+    camera.lookAt(cubeMesh.position)
+
+
     // console.log(Math.sin(elapsedTIme) )
-    // cubeMesh.position.y = Math.sin(elapsedTIme) \
-    cubeMesh.rotation.y = elapsedTIme * Math.PI * 2
+    // cubeMesh.position.y = Math.sin(elapsedTIme) 
+    // cubeMesh.rotation.y = elapsedTIme * Math.PI * 2
 
 
     // cubeMesh.position.x = Math.tan(elapsedTIme) 
