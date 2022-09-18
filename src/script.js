@@ -143,10 +143,49 @@ window.addEventListener('resize', () => {
     renderer.setSize(
         sizes.width, sizes.height
     )
-
+    // Set PixelRatio
+    // To have a more precise render
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2) )
 
 })
 
+window.addEventListener('dblclick', () =>{
+
+    // Declare the the prefixed and non-prefixed into a single variable
+    // This is done so we can pass a single element as the condition for our IF statement
+
+    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement
+
+    if(!fullscreenElement){
+
+        if(canvas.requestFullscreen){
+            canvas.requestFullscreen()    
+        }
+        else if(canvas.webkitRequestFullscreen){
+            canvas.webkitRequestFullscreen()
+        }
+        else if(canvas.mozRequestFullscreen){
+            canvas.mozRequestFullscreen()
+        }
+        else if(canvas.msRequestFullscreen){
+            canvas.msFullscreenElement()
+        }
+    }
+    else{
+        if(document.exitFullscreen){
+            document.exitFullscreen()
+        }
+        else if(document.webkitExitFullScreen){
+            document.webkitExitFullscreen()
+        }
+        else if(document.mozExitFullScreen){
+            document.mozExitFullscreen()
+        }
+        else if(document.msExitFullScreen){
+            document.msExitFullscreen()
+        }
+    }
+})
 
 // console.log(window.height)
 // Now we can declare the camera and place the sizes in it.
@@ -233,6 +272,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(
     sizes.width, sizes.height
 )
+
 
 // TIME
 // let Time = Date.now()
