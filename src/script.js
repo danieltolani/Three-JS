@@ -115,13 +115,38 @@ scene.add(cubeMesh)
 const sizes = {
     // width: window.innerWidth,
     // height: window.innerHeight
-
     width: window.innerWidth,
     height: window.innerHeight
 
     // width: 800,
     // height: 600
 }
+
+// RESIZE EVENT LISTENER
+window.addEventListener('resize', () => {
+    // console.log("I have been resized")
+
+    // update sizes of screen
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+
+    // Update the camera on resize
+    // camera's aspect should be update date as we're using innerW and innerH as our aspect
+    // For the changes to take effect, we need to call the updateprojectionMatrix
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
+
+
+    // There's need to update the renderer
+    // So that the canvas knows size to render from the new camera's aspect
+    renderer.setSize(
+        sizes.width, sizes.height
+    )
+
+
+})
+
 
 // console.log(window.height)
 // Now we can declare the camera and place the sizes in it.
