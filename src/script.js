@@ -154,7 +154,7 @@ window.addEventListener('dblclick', () =>{
     // Declare the the prefixed and non-prefixed into a single variable
     // This is done so we can pass a single element as the condition for our IF statement
 
-    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || documsFullscreenElement
+    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement
 
     if(!fullscreenElement){
 
